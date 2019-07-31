@@ -1,9 +1,10 @@
 import {Task} from "../task.model";
 import {HttpClient} from "@angular/common/http";
+import {EventEmitter} from "@angular/core";
 
 export class TaskService {
 
-    private tasks: Task[] = [];
+    onTaskAdded = new EventEmitter<Task>()
 
     constructor(private httpClient: HttpClient) {}
 
@@ -13,6 +14,10 @@ export class TaskService {
 
     saveTask(task: Task, checked: boolean) {
         task.completed = checked;
-        return this.httpClient.post('api/tasks/save', task);
+        return this.httpClient.post<Task>('api/tasks/save', task);
+    }
+
+    addTask(task: Task) {
+        return this.httpClient.post<Task>('api/tasks/save', task);
     }
 }
