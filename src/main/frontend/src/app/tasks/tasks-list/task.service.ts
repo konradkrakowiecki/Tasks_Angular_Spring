@@ -11,4 +11,8 @@ export class TaskService {
         return this.httpClient.get<Task[]>('api/tasks');
     }
 
+    saveTask(task: Task, checked: boolean) {
+        task.completed = checked;
+        return this.httpClient.post('api/tasks/save', task);
+    }
 }
